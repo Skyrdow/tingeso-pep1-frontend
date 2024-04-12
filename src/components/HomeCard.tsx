@@ -17,7 +17,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
   svg,
 }) => {
   return (
-    <div className="card">
+    <div className="card bg-white">
       <div className="card-body">
         <h2 className="card-header justify-start items-center gap-2">
           <img

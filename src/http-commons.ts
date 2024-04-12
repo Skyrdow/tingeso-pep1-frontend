@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Car } from "./types";
+import { Car, Reparation } from "./types";
 
 const url = import.meta.env.VITE_BACKEND_URL;
 const port = import.meta.env.VITE_BACKEND_PORT;
@@ -20,15 +20,27 @@ const postCar = (data: Car) => {
 };
 
 const setBrandBonus = (patent: string, brandBonus: number) => {
-  return http.post(`/cars/brandBonus/${patent}/${brandBonus}`);
+  return http.put(`/cars/brandBonus/${patent}/${brandBonus}`);
 };
 
 const getReparations = () => {
-  return http.get("/reparations/");
+  return http.get("/reparation/");
 };
 
-const postReparation = (data: any) => {
-  return http.post("/reparations/", data);
+const postReparation = (data: Reparation) => {
+  console.log(data.admissionDate);
+  console.log(data.repairExitDate);
+
+  const formattedData = JSON.stringify({
+    admissionDate: data.admissionDate,
+    patent: data.patent,
+    reparationTypes: data.reparationTypes.map((type: string) => ({
+      reparationType: type,
+    })),
+    repairExitDate: data.repairExitDate,
+    retrievalDate: data.retrievalDate,
+  });
+  return http.post("/reparation/", formattedData);
 };
 
 const getReport1 = () => {

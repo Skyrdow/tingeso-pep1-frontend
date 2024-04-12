@@ -35,16 +35,13 @@ export type Car = {
   seatCount: number;
   motorType: MotorType | undefined;
   carType: CarType | undefined;
-};
-
-export type ReparationTypeEntity = {
-  reparationType: ReparationType;
+  brandBonus: number;
 };
 
 export type Reparation = {
   patent: string;
-  addmissionDate: Date;
-  reparationTypes: ReparationTypeEntity[];
+  admissionDate: Date;
+  reparationTypes: string[];
   repairExitDate: Date;
   retrievalDate: Date;
 };

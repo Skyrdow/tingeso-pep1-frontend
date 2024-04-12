@@ -2,20 +2,21 @@ import React, { useState } from "react";
 import { Car } from "../types";
 import httpCommons from "../http-commons";
 import { CarType, MotorType } from "../types";
-import dayjs from "dayjs";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const AddCar = () => {
   // region js
   const isFilled = () => {
-    return (!carData.patent ||
-    !carData.brand ||
-    !carData.model ||
-    !carData.fabDate ||
-    !carData.seatCount ||
-    !carData.motorType ||
-    !carData.carType);
+    return (
+      !carData.patent ||
+      !carData.brand ||
+      !carData.model ||
+      !carData.fabDate ||
+      !carData.seatCount ||
+      !carData.motorType ||
+      !carData.carType
+    );
   };
 
   const [carData, setCarData] = useState<Car>({
@@ -27,25 +28,17 @@ const AddCar = () => {
     seatCount: 0,
     motorType: undefined,
     carType: undefined,
+    brandBonus: 0,
   });
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = event.target;
-
-    if (name === "dateTime") {
-      const formattedDate = dayjs(value).toDate();
-      setCarData((prevData) => ({
-        ...prevData,
-        [name]: formattedDate,
-      }));
-    } else {
-      setCarData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    }
+    setCarData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -63,37 +56,34 @@ const AddCar = () => {
           seatCount: 0,
           motorType: undefined,
           carType: undefined,
+          brandBonus: 0,
         });
-        
+        window.location.reload();
       })
       .catch((e) => {
         console.log(e.message);
       });
-
   };
 
   const handleDateChange = (newDate: any) => {
-    console.log(typeof newDate);
-
     setCarData((prevCarData) => ({
       ...prevCarData,
       fabDate: newDate,
     }));
-    console.log(
-      "Fecha seleccionada:",
-      dayjs(newDate).format("YYYY-MM-DD HH:mm:ss"),
-    );
   };
 
   // #region HTML
   return (
-    <form onSubmit={handleSubmit} className="form-group card p-8 min-w-[25%]">
+    <form
+      onSubmit={handleSubmit}
+      className="form-group card bg-white p-4 max-w-80 h-full"
+    >
       <div className="form-field">
         <label className="form-label" htmlFor="patent">
           Patente:
         </label>
         <input
-          className="input"
+          className="input input-ghost-success"
           type="text"
           id="patent"
           name="patent"
@@ -107,7 +97,7 @@ const AddCar = () => {
           Marca:
         </label>
         <input
-          className="input"
+          className="input input-ghost-success"
           type="text"
           id="brand"
           name="brand"
@@ -121,7 +111,7 @@ const AddCar = () => {
           Modelo:
         </label>
         <input
-          className="input"
+          className="input input-ghost-success"
           type="text"
           id="model"
           name="model"
@@ -135,7 +125,7 @@ const AddCar = () => {
           Fecha de fabricación:
         </label>
         <DatePicker
-          className="input"
+          className="input input-ghost-success"
           id="date-picker"
           selected={carData.fabDate}
           onChange={handleDateChange}
@@ -149,7 +139,7 @@ const AddCar = () => {
           Cantidad de asientos:
         </label>
         <input
-          className="input"
+          className="input input-ghost-success"
           type="number"
           id="seatCount"
           name="seatCount"
@@ -160,18 +150,33 @@ const AddCar = () => {
         />
       </div>
       <div className="form-field">
+        <label className="form-label" htmlFor="mileage">
+          Kilometraje:
+        </label>
+        <input
+          className="input input-ghost-success"
+          type="number"
+          id="mileage"
+          name="mileage"
+          value={carData.mileage}
+          onChange={handleInputChange}
+          min={0}
+          required
+        />
+      </div>
+      <div className="form-field">
         <label className="form-label" htmlFor="motorType">
           Tipo de motor:
         </label>
         <select
-          className="select"
+          className="select select-ghost-success"
           id="motorType"
           name="motorType"
           value={carData.motorType}
           onChange={handleInputChange}
           required
         >
-          <option value="">Select Motor Type</option>
+          <option value="">Tipo de motor</option>
           {Object.values(MotorType)
             .filter((value) => typeof value == "string")
             .map((value) => {
@@ -188,14 +193,14 @@ const AddCar = () => {
           Tipo de auto:
         </label>
         <select
-          className="select"
+          className="select select-ghost-success"
           id="carType"
           name="carType"
           value={carData.carType}
           onChange={handleInputChange}
           required
         >
-          <option value="">Select Car Type</option>
+          <option value="">Tipo de auto</option>
           {Object.values(CarType)
             .filter((value) => typeof value == "string")
             .map((value) => {
@@ -208,7 +213,7 @@ const AddCar = () => {
         </select>
       </div>
       <button
-        className={"btn " + (isFilled() ? "btn-error" : "btn-primary")}
+        className={"btn max-w-80 " + (isFilled() ? "btn-error" : "btn-primary")}
         type="submit"
         disabled={isFilled()}
       >
