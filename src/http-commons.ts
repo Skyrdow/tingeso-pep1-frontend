@@ -3,9 +3,11 @@ import { Car, Reparation } from "./types";
 
 const url = import.meta.env.VITE_BACKEND_URL;
 const port = import.meta.env.VITE_BACKEND_PORT;
+console.log(port);
+
 
 const http = axios.create({
-  baseURL: `http://${url}:${port}/api/v1`,
+  baseURL: `http://${url}:80/api/v1`,
   headers: {
     "Content-type": "application/json",
   },
