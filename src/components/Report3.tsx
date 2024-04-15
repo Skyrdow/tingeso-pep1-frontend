@@ -5,13 +5,15 @@ const Report3 = () => {
   const [report3, setReport3] = useState([]);
   useEffect(() => {
     console.log("Report 3");
-    httpCommons.getReport3().then((response) => {
-      console.log(response.data);
-      setReport3(response.data);
-    }
-    ).catch((e) => {
-      console.log(e)
-    });
+    httpCommons
+      .getReport3()
+      .then((response) => {
+        console.log(response.data);
+        setReport3(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }, []);
 
   return (
@@ -24,12 +26,14 @@ const Report3 = () => {
           </tr>
         </thead>
         <tbody>
-          {report3.sort((a:any, b:any) => a.time - b.time).map((item: any) => (
-            <tr>
-              <th>{item.brand}</th>
-              <td>{convertTime(item.time)}</td>
-            </tr>
-          ))}
+          {report3
+            .sort((a: any, b: any) => a.time - b.time)
+            .map((item: any) => (
+              <tr>
+                <th>{item.brand}</th>
+                <td>{convertTime(item.time)}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

@@ -7,7 +7,7 @@ interface TitleProps {
 
 const Title: React.FC<TitleProps> = ({ title, svg }) => {
   return (
-    <div className="flex flex-nowrap text-nowrap items-center gap-5 bg-white p-5 rounded-xl">
+    <div className="flex flex-nowrap text-nowrap items-center gap-5 bg-white p-5 rounded-xl shadow-xl">
       <img
         src={svg}
         alt="car repair icon"
