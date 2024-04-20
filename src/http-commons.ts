@@ -4,6 +4,7 @@ import { Car, Reparation } from "./types";
 const url = import.meta.env.VITE_BACKEND_URL;
 const port = import.meta.env.VITE_BACKEND_PORT;
 console.log(port);
+console.log(url);
 
 
 const http = axios.create({
