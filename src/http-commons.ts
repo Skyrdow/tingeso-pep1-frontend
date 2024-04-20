@@ -1,14 +1,12 @@
 import axios from "axios";
 import { Car, Reparation } from "./types";
 
-const url = import.meta.env.VITE_BACKEND_URL;
-const port = import.meta.env.VITE_BACKEND_PORT;
-console.log(port);
-console.log(url);
+// const url = import.meta.env.VITE_BACKEND_URL;
+// const port = import.meta.env.VITE_BACKEND_PORT;
 
 
 const http = axios.create({
-  baseURL: `http://${url}:80/api/v1`,
+  baseURL: `http://168.62.187.32:80/api/v1`,
   headers: {
     "Content-type": "application/json",
   },
