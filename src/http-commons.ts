@@ -6,7 +6,7 @@ import { Car, Reparation } from "./types";
 
 
 const http = axios.create({
-  baseURL: `http://168.62.187.32:80/api/v1`,
+  baseURL: `http://20.84.78.20:80/api/v1`,
   headers: {
     "Content-type": "application/json",
   },
